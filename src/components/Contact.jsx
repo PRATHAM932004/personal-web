@@ -124,6 +124,14 @@ export default function Contact() {
               ref={form}
               className="flex flex-col gap-4 text-left"
               onSubmit={sendEmail}
+              onChange={() => {
+                if (
+                  submitStatus === "error" ||
+                  submitStatus === "captcha_required"
+                ) {
+                  setSubmitStatus(null);
+                }
+              }}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
@@ -175,13 +183,17 @@ export default function Contact() {
                   className="bg-background border border-border-subtle rounded-lg px-4 py-3 text-[13px] text-text-primary outline-none transition-colors duration-150 focus:border-primary resize-y min-h-[120px] placeholder:text-text-muted/50"
                 />
               </div>
-              
+
               {recaptchaSiteKey && (
                 <div className="flex flex-col gap-1.5 mb-2">
                   <ReCAPTCHA
                     ref={recaptchaRef}
                     sitekey={recaptchaSiteKey}
-                    onChange={(val) => setCaptchaValue(val)}
+                    onChange={(val) => {
+                      setCaptchaValue(val);
+                      if (submitStatus === "captcha_required")
+                        setSubmitStatus(null);
+                    }}
                     theme="dark"
                   />
                   {submitStatus === "captcha_required" && (
@@ -195,7 +207,11 @@ export default function Contact() {
               <button
                 type="submit"
                 id="contact-submit"
-                disabled={isSubmitting}
+                disabled={
+                  isSubmitting ||
+                  submitStatus === "error" ||
+                  submitStatus === "captcha_required"
+                }
                 className="self-start inline-flex items-center justify-center gap-2 px-7 py-3 bg-primary text-background rounded-lg font-semibold text-[13px] transition-all duration-150 hover:bg-primary-hover hover:-translate-y-0.5 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
               >
                 <FiSend size={16} />
