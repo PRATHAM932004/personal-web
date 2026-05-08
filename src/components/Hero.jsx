@@ -117,23 +117,22 @@ export default function Hero() {
           {/* Glow */}
           <div className="absolute w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(16,185,129,0.15)_0%,transparent_70%)] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[60px] pointer-events-none" />
 
-          <div className="relative z-10 w-full max-w-[420px] bg-card border border-border-subtle rounded-2xl p-6">
+          <div className="relative z-10 w-full max-w-[350px] bg-card border border-border-subtle rounded-2xl p-6">
             {/* Dots */}
             <div className="flex gap-2 mb-4">
               <span className="w-3 h-3 rounded-full bg-[#ef4444]" />
               <span className="w-3 h-3 rounded-full bg-[#f59e0b]" />
               <span className="w-3 h-3 rounded-full bg-primary" />
             </div>
-            <pre className="font-mono text-[13px] leading-[1.7] text-text-secondary overflow-hidden">
+            <pre className="font-mono text-[13px] leading-[1.7] text-text-secondary overflow-x-auto">
               <code className="whitespace-pre">
                 {`const pratham = {
-                    role: "Full Stack Developer",
-                    skills: ["React", "Node.js",
-                             "Java", "Spring Boot"],
-                    passion: "Building scalable 
-                              web app",
-                    coffee: true ☕
-                };`}
+  role: "Full Stack Developer",
+  skills: ["React", "Node.js",
+           "Java", "Spring Boot"],
+  passion: "Building scalable web app",
+  coffee: true ☕
+};`}
               </code>
             </pre>
           </div>

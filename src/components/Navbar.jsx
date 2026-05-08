@@ -19,12 +19,23 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   return (
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-250 border-b ${
-        scrolled
-          ? "bg-background/85 backdrop-blur-xl border-border-subtle"
-          : "border-transparent"
+        scrolled || mobileOpen
+          ? "bg-background border-border-subtle"
+          : "bg-transparent border-transparent"
       }`}
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -82,7 +93,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div
-        className={`fixed top-[60px] inset-x-0 bottom-0 bg-background/97 backdrop-blur-3xl p-12 transition-transform duration-250 md:hidden ${
+        className={`fixed top-[60px] inset-x-0 bottom-0 bg-background backdrop-blur-3xl p-12 transition-transform duration-250 md:hidden flex flex-col ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
