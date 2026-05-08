@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { FiMail, FiMapPin, FiSend } from "react-icons/fi";
 import emailjs from "@emailjs/browser";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Contact() {
   const ref = useRef(null);
@@ -10,11 +11,21 @@ export default function Contact() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [captchaValue, setCaptchaValue] = useState(null);
+
+  const recaptchaRef = useRef(null);
+  const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || "";
 
   const email = import.meta.env.EMAIL_ADDRESS;
 
   const sendEmail = (e) => {
     e.preventDefault();
+
+    if (recaptchaSiteKey && !captchaValue) {
+      setSubmitStatus("captcha_required");
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus(null);
 
@@ -51,6 +62,8 @@ export default function Contact() {
         setIsSubmitting(false);
         setSubmitStatus("success");
         form.current.reset();
+        if (recaptchaRef.current) recaptchaRef.current.reset();
+        setCaptchaValue(null);
         setTimeout(() => setSubmitStatus(null), 5000);
       })
       .catch((error) => {
@@ -161,6 +174,23 @@ export default function Contact() {
                   className="bg-background border border-border-subtle rounded-lg px-4 py-3 text-[13px] text-text-primary outline-none transition-colors duration-150 focus:border-primary resize-y min-h-[120px] placeholder:text-text-muted/50"
                 />
               </div>
+              
+              {recaptchaSiteKey && (
+                <div className="flex flex-col gap-1.5 mb-2">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={recaptchaSiteKey}
+                    onChange={(val) => setCaptchaValue(val)}
+                    theme="dark"
+                  />
+                  {submitStatus === "captcha_required" && (
+                    <span className="text-[13px] text-red-500 font-medium">
+                      Please complete the CAPTCHA.
+                    </span>
+                  )}
+                </div>
+              )}
+
               <button
                 type="submit"
                 id="contact-submit"
