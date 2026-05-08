@@ -65,6 +65,7 @@ export default function Contact() {
         if (recaptchaRef.current) recaptchaRef.current.reset();
         setCaptchaValue(null);
         setTimeout(() => setSubmitStatus(null), 5000);
+        window.scrollTo({ top: 0, behavior: "smooth" });
       })
       .catch((error) => {
         setIsSubmitting(false);
