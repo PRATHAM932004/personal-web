@@ -4,7 +4,7 @@ import { RiDoubleQuotesL } from 'react-icons/ri';
 
 const testimonials = [
   {
-    text: 'Job well done! I am really impressed. He is very very good at what he does :) I would recommend Sagar and will definitely work with him again.',
+    text: 'Job well done! I am really impressed. He is very very good at what he does :) I would recommend Pratham and will definitely work with him again.',
     name: 'John Doe',
     title: 'Founder - xyz.com',
   },
@@ -14,7 +14,7 @@ const testimonials = [
     title: 'Founder - abc.com',
   },
   {
-    text: 'Sagar was extremely easy and pleasant to work with and he truly cares about the project being a success. Sagar has a high level of knowledge and was able to immediately dive into our web application without issues.',
+    text: 'Pratham was extremely easy and pleasant to work with and he truly cares about the project being a success. Pratham has a high level of knowledge and was able to immediately dive into our web application without issues.',
     name: 'John Doe',
     title: 'Freelancer',
   },
